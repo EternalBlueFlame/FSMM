@@ -87,7 +87,7 @@ public class Config {
 		if(obj.has("Items")){
 			obj.get("Items").getAsJsonArray().forEach((elm) -> {
 				GenericMoney money = new GenericMoney(elm.getAsJsonObject(), true);
-				FSMM.CURRENCY.put(money.getRegistryName().toString(), money); new GenericMoneyItem(money);
+				FSMM.CURRENCY.put(money.getRegistryName().toString().toLowerCase(), money); new GenericMoneyItem(money);
 				//money.stackload(FCLRegistry.getItem("fsmm:" + money.getRegistryName().getResourcePath()), elm.getAsJsonObject(), true);
 			});
 		}
@@ -180,7 +180,7 @@ public class Config {
 					}
 					if(jsn.has("register") && jsn.get("register").getAsBoolean()){
 						//event.getRegistry().register(new GenericMoney(jsn, false));
-						FSMM.CURRENCY.put(rs.toString(), new GenericMoney(jsn, false));
+						FSMM.CURRENCY.put(rs.toString().toLowerCase(), new GenericMoney(jsn, false));
 					}
 				});
 			}

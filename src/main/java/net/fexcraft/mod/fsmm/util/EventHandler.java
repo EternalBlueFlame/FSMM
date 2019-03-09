@@ -4,10 +4,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.fexcraft.mod.fsmm.FSMM;
 import net.fexcraft.mod.fsmm.api.Account;
+import net.fexcraft.mod.fsmm.api.Money;
 import net.fexcraft.mod.lib.fcl.Formatter;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+
+import java.util.Iterator;
 
 public class EventHandler {
 	
@@ -37,14 +42,11 @@ public class EventHandler {
     @SideOnly(Side.CLIENT) @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event){
     	if(!Config.SHOW_ITEM_WORTH_IN_TOOLTIP){ return; }
-    	if(event.itemStack.hasTagCompound() && event.itemStack.getTagCompound().hasKey("FSMM_Data")){//TODO
-    		/*long worth = event.itemStack.getCapability(FSMMCapabilities.MONEY_ITEMSTACK, null).getWorth();
-    		String str = "&9" + Config.getWorthAsString(worth, true, worth < 10);
-    		if(event.itemStack.stackSize > 1){
-    			str += " &8(&7" + Config.getWorthAsString(worth * event.itemStack.stackSize, true, worth < 10) + "&8)";
-    		}
-    		event.toolTip.add(Formatter.format(str));*/
-    	}
+		if(event.itemStack!=null && FSMM.CURRENCY.containsKey(event.itemStack.getItem().delegate.name().toLowerCase())){
+			event.toolTip.add(
+					Formatter.format("&9"+Config.getWorthAsString(FSMM.CURRENCY.get(event.itemStack.getItem().delegate.name().toLowerCase()).getWorth()* event.itemStack.stackSize))
+			);
+		}
     }
     
 }

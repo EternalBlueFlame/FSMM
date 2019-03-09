@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -67,12 +68,15 @@ public class FSMM {
 	public void serverStopping(FMLServerStoppingEvent event){
 		DataManager.saveAll();
 	}
-	
+
+	private static EventHandler handler = new EventHandler();
+
 	@Mod.EventHandler
     public void init(FMLInitializationEvent event){
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		UpdateHandler.initialize();
-		MinecraftForge.EVENT_BUS.register(new EventHandler());
+		MinecraftForge.EVENT_BUS.register(handler);
+		FMLCommonHandler.instance().bus().register(handler);
 		Config.EventHandler.onRegistry();
     }
 
