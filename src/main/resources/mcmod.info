@@ -11,6 +11,6 @@
   "credits": "Updated 1.7.10 port by Eternal Blue Flame, actual code by FEX___96",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": ["fcl"]
+  "dependencies": []
 }
 ]

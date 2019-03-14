@@ -2,7 +2,7 @@ package net.fexcraft.mod.lib.fcl;
 
 public class Formatter {
 
-    public static final String PARAGRAPH_SIGN = "\u00a7";
+    public static final String PARAGRAPH_SIGN = "§";
 
     public static String format(String string){
         if(string == null){ return ""; }

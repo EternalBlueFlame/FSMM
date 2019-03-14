@@ -13,6 +13,7 @@ public class GenericMoneyItem extends Item implements Money.Item {
 	public GenericMoneyItem(Money money){
 		super(); setCreativeTab(FSMM.tabFSMM); setMaxStackSize(50); this.type = money;
 		this.setUnlocalizedName(money.getRegistryName().toString());
+		this.setTextureName("fsmm:"+ money.getRegistryName().getResourcePath());
 		GameRegistry.registerItem(this, money.getRegistryName().getResourcePath());
 	}
 
@@ -23,7 +24,7 @@ public class GenericMoneyItem extends Item implements Money.Item {
 
 	@Override
 	public long getWorth(ItemStack stack){
-		return type.getWorth()/* * stack.getCount()*/;
+		return type.getWorth() * stack.stackSize;
 	}
 	
 }

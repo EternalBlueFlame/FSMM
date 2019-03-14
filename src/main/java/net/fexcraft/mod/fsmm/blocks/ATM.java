@@ -21,6 +21,7 @@ public class ATM extends Block {
     	this.setHardness(1.0F);
     	this.setResistance(10.0F);
     	this.setBlockName("fsmm:atm");
+    	setBlockTextureName("fsmm:atm");
     	GameRegistry.registerBlock(INSTANCE = this, ItemBlack.class, "atm");
 	}
 	

@@ -25,10 +25,10 @@ public class EventHandler {
 		Print.debug("Loading account of " + event.player.getDisplayName() + " || " + event.player.getGameProfile().getId().toString());
     	Account account = DataManager.getAccount("player:" + event.player.getGameProfile().getId().toString(), false, true);
     	if(Config.NOTIFY_BALANCE_ON_JOIN && account!=null){
-    		Print.chat(event.player, "&m&3Balance &r&7(in bank)&0: &a" + Config.getWorthAsString(account.getBalance()));
-    		Print.chat(event.player, "&m&3Balance &r&7(in Inv0)&0: &a" + Config.getWorthAsString(ItemManager.countInInventory(event.player)));
+    		Print.chat(event.player, "§m§3Balance §r§7(in bank)§0: §a" + Config.getWorthAsString(account.getBalance()));
+    		Print.chat(event.player, "§m§3Balance §r§7(in Inv0)§0: §a" + Config.getWorthAsString(ItemManager.countInInventory(event.player)));
     	} else if (Config.NOTIFY_BALANCE_ON_JOIN){
-    		Print.chat(event.player, "&m&3Balance could not be loaded");
+    		Print.chat(event.player, "§m§3Balance could not be loaded");
 		}
     	if(account.lastAccessed() >= 0){ account.setTemporary(false); }
     }
@@ -44,7 +44,7 @@ public class EventHandler {
     	if(!Config.SHOW_ITEM_WORTH_IN_TOOLTIP){ return; }
 		if(event.itemStack!=null && FSMM.CURRENCY.containsKey(event.itemStack.getItem().delegate.name().toLowerCase())){
 			event.toolTip.add(
-					Formatter.format("&9"+Config.getWorthAsString(FSMM.CURRENCY.get(event.itemStack.getItem().delegate.name().toLowerCase()).getWorth()* event.itemStack.stackSize))
+					Formatter.format("§9"+Config.getWorthAsString(FSMM.CURRENCY.get(event.itemStack.getItem().delegate.name().toLowerCase()).getWorth()* event.itemStack.stackSize))
 			);
 		}
     }

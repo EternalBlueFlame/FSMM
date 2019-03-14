@@ -33,18 +33,21 @@ public class Processor implements IPacketListener<PacketJsonObject> {
 			JsonObject reply = new JsonObject();
 			switch(pkt.obj.get("request").getAsString()){
 				case "main_data":{
+					//todo: bankId is possible to be null
 					reply.addProperty("bank_id", playeracc.getBankId().toString());
 					Bank bank = DataManager.getBank(playeracc.getBankId(), true, true);
 					reply.addProperty("bank_name", bank == null ? "Invalid Null Bank" : bank.getName());
 					break;
 				}
 				case "show_balance":{
+					//todo: bankId is possible to be null
 					reply.addProperty("balance", playeracc.getBalance());
 					break;
 				}
 				case "deposit_result":{
 					long input = pkt.obj.get("input").getAsLong();
 					if(input <= 0){ return; }
+					//todo: bankId and processAction is possible to be null
 					Bank bank = DataManager.getBank(playeracc.getBankId(), true, false);
 					reply.addProperty("success", bank.processAction(Bank.Action.DEPOSIT, player, null, input, playeracc));
 					break;
@@ -52,6 +55,7 @@ public class Processor implements IPacketListener<PacketJsonObject> {
 				case "withdraw_result":{
 					long input = pkt.obj.get("input").getAsLong();
 					if(input <= 0){ return; }
+					//todo: bankId and processAction is possible to be null
 					Bank bank = DataManager.getBank(playeracc.getBankId(), true, false);
 					reply.addProperty("success", bank.processAction(Bank.Action.WITHDRAW, player, playeracc, input, null));
 					break;
@@ -72,7 +76,7 @@ public class Processor implements IPacketListener<PacketJsonObject> {
 				case "accounts_of_type":{
 					File file = new File(DataManager.ACCOUNT_DIR, pkt.obj.get("type").getAsString() + "/");
 					JsonArray accounts = new JsonArray();
-					if(file.exists() && file.isDirectory()){
+					if(file.exists() && file.isDirectory() && file.listFiles()!=null){
 						for(File fl : file.listFiles()){
 							if(!fl.isDirectory() && !fl.isHidden() && fl.getName().endsWith(".json")){
 								accounts.add(JsonUtil.makeFromString(fl.getName().substring(0, fl.getName().length() - 5)));
@@ -114,6 +118,7 @@ public class Processor implements IPacketListener<PacketJsonObject> {
 						Print.chat(player, "Error loading Receiver account.\n(" + pkt.obj.get("receiver").getAsString() + ");");
 						return;
 					}
+					//todo: bankId is possible to be null
 					Bank bank = DataManager.getBank(playeracc.getBankId(), true, false);
 					if(bank == null){ Print.chat(player, "Error, bank not loaded."); return; }
 					reply.addProperty("success", bank.processAction(Bank.Action.TRANSFER, player, playeracc, input, receiver));

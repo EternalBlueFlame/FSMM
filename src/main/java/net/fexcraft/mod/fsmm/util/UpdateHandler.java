@@ -14,8 +14,8 @@ public class UpdateHandler {
 	private static String type;
 	
 	//Color Stuff
-	private static String PREFIX = Formatter.format("&0[&3FSMM&0]");
-	private static String grayBracket = "&7).";
+	private static String PREFIX = Formatter.format("§0[§3FSMM§0]");
+	private static String grayBracket = "§7).";
 	
 	public static void initialize(){
 		getDataFromServer();
@@ -23,17 +23,17 @@ public class UpdateHandler {
 		
 		if(NV != null) {
 			if(!NV.equalsIgnoreCase(CV)) {
-				Status = PREFIX + "&7 New Version avaible! (&a" + NV + grayBracket
-				+ "\n" + PREFIX + "&7 Your Client version: (&c" + CV + grayBracket
-				+ "\n" + PREFIX + "&7 Update type: (&3" + type + grayBracket;
+				Status = PREFIX + "§7 New Version avaible! (§a" + NV + grayBracket
+				+ "\n" + PREFIX + "§7 Your Client version: (§c" + CV + grayBracket
+				+ "\n" + PREFIX + "§7 Update type: (§3" + type + grayBracket;
 			}
 		}
 		if(LMCV != null && !LMCV.equals("1.7.10")){
 			if(Status == null){
-				Status = PREFIX + "&7 Now avaible for MC " + LMCV + "!";
+				Status = PREFIX + "§7 Now avaible for MC " + LMCV + "!";
 			}
 			else{
-				Status += "\n" + PREFIX + "&7 Now avaible for MC " + LMCV + "!";
+				Status += "\n" + PREFIX + "§7 Now avaible for MC " + LMCV + "!";
 			}
 		}
 	}
