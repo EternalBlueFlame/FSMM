@@ -1,5 +1,6 @@
 package net.fexcraft.mod.fsmm.api;
 
+import net.fexcraft.mod.fsmm.FSMM;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -7,7 +8,7 @@ public interface Money{
 
 	public long getWorth();
 	
-	public ItemStack getItemStack();
+	public static ItemStack getItemStack(Money m){return new ItemStack(FSMM.CURRENCY_ITEMS.get(m),1).copy();}
 
 	public ResourceLocation getRegistryName();
 

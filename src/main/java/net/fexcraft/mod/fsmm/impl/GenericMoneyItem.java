@@ -15,6 +15,7 @@ public class GenericMoneyItem extends Item implements Money.Item {
 		this.setUnlocalizedName(money.getRegistryName().toString());
 		this.setTextureName("fsmm:"+ money.getRegistryName().getResourcePath());
 		GameRegistry.registerItem(this, money.getRegistryName().getResourcePath());
+		FSMM.CURRENCY_ITEMS.put(money, this);
 	}
 
 	@Override
@@ -26,5 +27,4 @@ public class GenericMoneyItem extends Item implements Money.Item {
 	public long getWorth(ItemStack stack){
 		return type.getWorth() * stack.stackSize;
 	}
-	
 }

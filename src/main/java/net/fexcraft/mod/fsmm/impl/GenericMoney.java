@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class GenericMoney implements Money {
 	
 	private ResourceLocation regname;
-	private ItemStack stack;
 	private long worth;
 	
 	public GenericMoney(JsonObject obj, boolean internal){
@@ -60,8 +59,8 @@ public class GenericMoney implements Money {
 			}
 		}
 		//
-		stack = new ItemStack(item, 1, JsonUtil.getIfExists(obj, "meta", -1).intValue());
-		if(compound != null){ stack.setTagCompound(compound); }
+		//stack = new ItemStack(item, 1, JsonUtil.getIfExists(obj, "meta", -1).intValue());
+		//if(compound != null){ stack.setTagCompound(compound); }
 	}
 
 	@Override
@@ -86,10 +85,6 @@ public class GenericMoney implements Money {
 		return super.toString() + "#" + this.getWorth();
 	}
 
-	@Override
-	public ItemStack getItemStack(){
-		return stack;
-	}
 
 	/**
 	 * Get the referent pointed at by this delegate. This will be the currently active item or block, and will change

@@ -26,7 +26,7 @@ public class Processor implements IPacketListener<PacketJsonObject> {
 
 	@Override
 	public void process(PacketJsonObject pkt, Object[] objs){
-		Print.debug(pkt.obj.getAsString());
+		//Print.debug(pkt.obj.getAsString());
 		if(pkt.obj.has("request")){
 			EntityPlayerMP player = (EntityPlayerMP)objs[0];
 			Account playeracc = DataManager.getAccount("player:" + player.getGameProfile().getId().toString(), false, false, null);

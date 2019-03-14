@@ -1,9 +1,6 @@
 package net.fexcraft.mod.fsmm;
  
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -12,6 +9,7 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,7 +32,8 @@ import net.minecraftforge.common.MinecraftForge;
 @Mod(modid = FSMM.MODID, name = "Fex's Small Money Mod", version = FSMM.VERSION, acceptableRemoteVersions = "*", acceptedMinecraftVersions = "*")
 public class FSMM {
 
-	public static Map<String, Money> CURRENCY = new TreeMap<>();
+	public static Map<String, Money> CURRENCY = new HashMap<>();
+	public static Map<Money, Item> CURRENCY_ITEMS = new HashMap<>();
 	public static final String MODID = "fsmm";
 	public static final String VERSION = "@VERSION@";
 
@@ -84,7 +83,10 @@ public class FSMM {
     public void postInit(FMLPostInitializationEvent event){
     	if(event.getSide().isClient()){
     		JsonObjectPacketHandler.addListener(Side.CLIENT, new net.fexcraft.mod.fsmm.gui.AutomatedTellerMashineGui.Receiver());
-    	} else JsonObjectPacketHandler.addListener(Side.CLIENT, new Processor());
+    	}
+
+    		JsonObjectPacketHandler.addListener(Side.SERVER, new Processor());
+
     	CACHE.schedule(); PacketHandler.init();
     }
     

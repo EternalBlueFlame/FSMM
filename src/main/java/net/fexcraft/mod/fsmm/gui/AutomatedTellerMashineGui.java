@@ -325,6 +325,7 @@ public class AutomatedTellerMashineGui extends GuiScreen {
 	public void openPerspective(String window, JsonObject obj){
 		this.window = window;
 		selectbox = false;
+		Print.debug(window);
 		switch(window){
 			case "loading":{
 				lines[0] = "Loading....";
@@ -458,7 +459,7 @@ public class AutomatedTellerMashineGui extends GuiScreen {
 		
 		@Override
 		public void process(PacketJsonObject pkt, Object[] objs){
-			Print.debug(pkt.obj.getAsString());
+			//Print.debug(pkt.obj.getAsString());
 			if(pkt.obj.has("payload")){
 				switch(pkt.obj.get("payload").getAsString()){
 					case "main_data":{

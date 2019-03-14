@@ -26,13 +26,13 @@ public class ItemManager {
 		return value;
 	}
 	
-	public static boolean hasSpace(EntityPlayer player, boolean countMoneyItemAsSpace){
+	public static boolean hasSpace(EntityPlayer player, boolean countMoneyItemAsSpace, Money money){
 		int i = 0;
 		for(ItemStack stack : player.inventory.mainInventory){
 			if(stack == null){
 				i++;
 				break;
-			} else if(stack.stackSize<stack.getMaxStackSize() && FSMM.CURRENCY.containsKey(stack.getItem().delegate.name().toLowerCase())){
+			} else if(stack.stackSize<stack.getMaxStackSize() && FSMM.CURRENCY_ITEMS.containsKey(money)){
 				i++;
 				break;
 			}
@@ -62,21 +62,19 @@ public class ItemManager {
 				player.inventory.setInventorySlotContents(i, null);
 			}
 		}
-		List<Money> list = FSMM.getSortedMoneyList();
-		Money money = null;
-		for(int i = 0; i < list.size(); i++){
-			Print.debug(list.get(i).getWorth()+"", list.get(i).getRegistryName().toString());
-			while(amount - (money = list.get(i)).getWorth() >= 0){
-				ItemStack stack = money.getItemStack().copy();
-				if(hasSpace(player, false)){
+		for(Money m : FSMM.getSortedMoneyList()){
+			//Print.debug(m.getWorth()+"", m.getRegistryName().toString());
+			while(amount - m.getWorth() >= 0){
+				ItemStack stack = Money.getItemStack(m);
+				if(hasSpace(player, true, m)){
+					Print.debug("adding money?");
 					player.inventory.addItemStackToInventory(stack);
 				}
 				else{
 					player.getEntityWorld().spawnEntityInWorld(new EntityItem(player.getEntityWorld(), player.posX, player.posY, player.posZ, stack));
 				}
-				amount -= money.getWorth();
+				amount -= m.getWorth();
 			}
-			continue;
 		}
 		if(amount > 0){
 			Print.chat(player, Config.getWorthAsString(amount, true, true) + " couldn't be added to inventory because no matching items were found.");
