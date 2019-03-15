@@ -1,5 +1,6 @@
 package net.fexcraft.mod.fsmm.util;
 
+import net.fexcraft.mod.lib.fcl.Formatter;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.launchwrapper.Launch;
@@ -36,6 +37,9 @@ public class Print {
         }
     }
 
+    public static void bar(EntityPlayer sender, String string){
+        sender.addChatComponentMessage(new ChatComponentText(Formatter.format(string)));
+    }
 
     public static void log(String s){
         debug(s);
